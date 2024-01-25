@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +21,15 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', [
+        'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get()
+    ]);
 });
+
+Route::get(
+    '/schedule',
+    [ScheduleController::class, 'index']
+);
 
 // Route::get('/signin', function () {
 //     return view('login.signin');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Schedule;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
+use App\Models\Place;
 
 class ScheduleController extends Controller
 {
@@ -13,7 +14,14 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $locations = Place::all();
+        $times = Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get();
+        // dd($times);
+
+        return view('schedule', [
+            'locations' => $locations,
+            'times' => $times
+        ]);
     }
 
     /**
