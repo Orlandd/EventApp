@@ -31,6 +31,15 @@ Route::get(
     [ScheduleController::class, 'index']
 );
 
+Route::get(
+    '/locations',
+    function () {
+        return view('locations', [
+            'locations' => Place::all()
+        ]);
+    }
+);
+
 // Route::get('/signin', function () {
 //     return view('login.signin');
 // });

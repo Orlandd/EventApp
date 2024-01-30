@@ -12,7 +12,7 @@
         </div>
         <div class="col">
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner rounded-4">
+                <div class="carousel-inner rounded-4 shadow-lg">
                     <div class="carousel-item active">
                         <img src="https://source.unsplash.com/720x1080?stage?orientation=potrait"
                             class="rounded-4 d-block w-100 h-95" alt="..." style="filter: brightness(50%);">
@@ -33,44 +33,44 @@
         <br>
         <div class="row row-cols-1 row-cols-md-4 g-4 row-cols-sm-2">
             <div class="col">
-                <div class="card h-100">
+                <div class="card h-100 border border-0 shadow">
                     <img src="https://source.unsplash.com/1080x720?bulding-concert?orientation=landscape"
                         class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">Location 1</h5>
                         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
                             additional content. This content is a little bit longer.</p>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <div class="card h-100">
+                <div class="card h-100 border border-0 shadow">
                     <img src="https://source.unsplash.com/1080x720?concert-hall?orientation=landscape" class="card-img-top"
                         alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">Location 2</h5>
                         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
                             additional content. This content is a little bit longer.</p>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <div class="card h-100">
+                <div class="card h-100 border border-0 shadow">
                     <img src="https://source.unsplash.com/1080x720?auditorium?orientation=landscape" class="card-img-top"
                         alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">Location 3</h5>
                         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
                             additional content.</p>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <div class="card h-100">
+                <div class="card h-100 border border-0 shadow">
                     <img src="https://source.unsplash.com/1080x720?stage?orientation=landscape" class="card-img-top"
                         alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">Location 4</h5>
                         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
                             additional content. This content is a little bit longer.</p>
                     </div>
