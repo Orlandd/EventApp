@@ -59,7 +59,7 @@ class TicketController extends Controller
         // Untuk mendapatkan tanggal dan waktu
         $date = explode(",", $request->schedule);
 
-        $schedule = Schedule::where('event_id', $request->event)->where('place_id', $request->location)->where('tanggal', $date[0])->where('waktu', $date[1])->first();
+        // $schedule = Schedule::where('event_id', $request->event)->where('place_id', $request->location)->where('tanggal', $date[0])->where('waktu', $date[1])->first();
 
         // dd($schedule);
         for ($i = 0; $i < $request->quantity; $i++) {
@@ -68,7 +68,7 @@ class TicketController extends Controller
             $data = [
                 "code" => $code,
                 "user_id" => Auth::id(),
-                "schedule_id" => $schedule->id
+                "schedule_id" => $request->schedule
             ];
 
             Ticket::create($data);
@@ -110,8 +110,18 @@ class TicketController extends Controller
     {
         $tickets = Ticket::where('code', $request->result)->first();
 
+
+        if (!$tickets) {
+            return response()->json('Ticket not found!', 404);
+        }
+
         if ($tickets->status == 1) {
-            return redirect('/dashboard/scan')->with('failed', 'Ticket already used!');
+            // return response()->json('Ticket already used!');
+            return response()->json('
+                <div class="alert alert-danger" role="alert">
+                    Ticket already used!
+                </div>
+            ');
         }
 
 
@@ -119,7 +129,12 @@ class TicketController extends Controller
             'status' => 1
         ]);
 
-        return redirect('/dashboard/scan') > with('success', 'Ticket successfully used!');
+        // return response()->json('Ticket successfully used!');
+        return response()->json('
+                <div class="alert alert-success" role="alert">
+                    Ticket successfully used!
+                </div>
+        ');
     }
 
     /**
@@ -128,5 +143,25 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+
+    public function getDataLocation(Request $request)
+    {
+        $event = $request->input('event');
+        $data = Schedule::with('places')->where('event_id', $event)->get();
+
+        return response()->json($data);
+
+        // return view('booking', compact('data'));
+    }
+
+    public function getDataSchedule(Request $request)
+    {
+        $event = $request->input('event');
+        $place = $request->input('place');
+
+        $data = Schedule::where('event_id', $event)->where('place_id', $place)->get();
+        return response()->json($data);
     }
 }

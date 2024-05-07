@@ -4,16 +4,10 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Scan Code</h1>
     </div>
-    @if (session()->has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if (session()->has('failed'))
-        <div class="alert alert-danger" role="alert">
-            {{ session('failed') }}
-        </div>
-    @endif
+
+    <div id="notif">
+    </div>
+
     <div class="d-flex justify-content-center">
         <div class="row">
             <div class="col-12">
@@ -28,9 +22,8 @@
         <div class="row">
             <div class="col-12">
                 <h5>Input Code</h5>
-                <form action="/dashboard/scan/code" method="post">
-                    @method('put')
-                    @csrf
+                <form id="scanForm">
+
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Recipient's username"
                             aria-label="Recipient's username" aria-describedby="button-addon2" style="width: 40rem;"
@@ -43,13 +36,60 @@
     </div>
     {{-- <div id="reader" width="100px"></div> --}}
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        $(document).ready(function() {
+            // Tangani event submit pada form
+            $('#scanForm').submit(function(e) {
+                e.preventDefault(); // Hindari reload halaman
+
+                let code = $('#result').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/dashboard/scan/code',
+                    data: {
+                        result: code,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $("#notif").html(`
+                            ${response}
+                        `)
+                    },
+                    error: function(xhr, status, error) {
+                        // Tanggapan error dari server
+                        // console.error(xhr.responseText);
+                        // Lakukan tindakan lain jika diperlukan
+                    }
+                });
+            });
+        });
+
         function onScanSuccess(decodedText, decodedResult) {
             // handle the scanned code as you like, for example:
             console.log(`Code matched = ${decodedText}`, decodedResult);
 
-            let result = document.getElementById('result');
-            result.value = decodedText;
+            let code = decodedText;
+
+            $.ajax({
+                type: 'POST',
+                url: '/dashboard/scan/code',
+                data: {
+                    result: code,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#notif").html(`
+                            ${response}
+                        `)
+                },
+                error: function(xhr, status, error) {
+
+                }
+            });
+
+
         }
 
         function onScanFailure(error) {

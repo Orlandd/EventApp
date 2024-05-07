@@ -1,106 +1,105 @@
 @extends('layout.main')
 
 @section('container')
-    <div class="row">
-        <div class="col d-flex align-items-center">
-            <div class="hero-word">
-                <h4>Welcome to, Event ID</h4>
-                <h1>Your Gateway to Unforgettable Concert Experiences! </h1>
-                <p>Elevate your concert experience! Exclusive access, seamless booking, top-notch security. Stay updated and
+    <section class="container mx-auto px-4">
+        <div class=" flex flex-wrap-reverse mx-auto md:flex-nowrap gap-4 ">
+            <div class="w-full mx-auto my-auto">
+                <h4 class="text-lg text-sky-600 font-bold">Welcome to, Event ID</h4>
+                <h1 class="text-3xl text-slate-900 font-bold">Your Gateway to Unforgettable Concert Experiences! </h1>
+                <p class="text-lg">Elevate your concert experience! Exclusive access, seamless booking, top-notch
+                    security. Stay updated and
                     make it an Event. Secure your tickets now!</p>
             </div>
-        </div>
-        <div class="col">
-            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner rounded-4 shadow-lg">
-                    <div class="carousel-item active">
-                        <img src="https://source.unsplash.com/720x1080?stage?orientation=potrait"
-                            class="rounded-4 d-block w-100 h-95" alt="..." style="filter: brightness(50%);">
+            <div class="w-full flex gap-1 md:max-w-[610px]">
+                <div class="mx-auto w-[400px] h-[300px] md:w-[300px] md:h-[608px] bg-slate-500 rounded-xl overflow-hidden">
+                    <img src="https://source.unsplash.com/1000x3000?stage?orientation=horizontal" alt="">
+                </div>
 
+                <div class="hidden md:inline">
+                    <div
+                        class="mx-auto mb-2 w-[400px] h-[300px] md:w-[300px] md:h-[300px] bg-slate-500 rounded-xl overflow-hidden">
+                        <img src="https://source.unsplash.com/1080x1080?stage?orientation=horizontal" alt="">
                     </div>
-                    <div class="carousel-item">
-                        <img src="https://source.unsplash.com/720x1080?concert-stage?orientation=potrait"
-                            class="rounded-4 d-block w-100 h-95" alt="..." style="filter: brightness(50%);">
+                    <div
+                        class="mx-auto  mt-2 w-[400px] h-[300px] md:w-[300px] md:h-[300px] bg-slate-500 rounded-xl overflow-hidden">
+                        <img src="https://source.unsplash.com/1080x1080?praise?orientation=horizontal" alt="">
                     </div>
                 </div>
+
             </div>
         </div>
-    </div>
+
+
+    </section>
+
     <br>
     <hr>
-    <div class="row">
-        <h2 class="text-center">Locations</h2>
-        <br>
-        <div class="row row-cols-1 row-cols-md-4 g-4 row-cols-sm-2">
-            <div class="col">
-                <div class="card h-100 border border-0 shadow">
-                    <img src="https://source.unsplash.com/1080x720?bulding-concert?orientation=landscape"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Location 1</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+
+    <section class="container mx-auto px-4">
+        <div class="mx-auto">
+            <h2 class="text-2xl font-semibold text-center">Locations</h2>
+
+            <div class="mt-3">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
+                        <div class=" aspect-square bg-slate-600 rounded-lg overflow-hidden">
+                            <img src="https://source.unsplash.com/1080x1080?bulding-concert?orientation=landscape"
+                                class="card-img-top" alt="...">
+                        </div>
+                        <p class="text-center text-xl mt-3">Location 1</p>
                     </div>
+
+                    <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
+                        <div class=" aspect-square bg-slate-600 rounded-lg overflow-hidden">
+                            <img src="https://source.unsplash.com/1080x1080?concert-hall?orientation=landscape"
+                                class="card-img-top" alt="...">
+                        </div>
+                        <p class="text-center text-xl mt-3">Location 1</p>
+                    </div>
+
+                    <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
+                        <div class=" aspect-square bg-slate-600 rounded-lg overflow-hidden">
+                            <img src="https://source.unsplash.com/1080x1080?auditorium?orientation=landscape"
+                                class="card-img-top" alt="...">
+                        </div>
+                        <p class="text-center text-xl mt-3">Location 1</p>
+                    </div>
+
                 </div>
             </div>
-            <div class="col">
-                <div class="card h-100 border border-0 shadow">
-                    <img src="https://source.unsplash.com/1080x720?concert-hall?orientation=landscape" class="card-img-top"
-                        alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Location 2</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100 border border-0 shadow">
-                    <img src="https://source.unsplash.com/1080x720?auditorium?orientation=landscape" class="card-img-top"
-                        alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Location 3</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100 border border-0 shadow">
-                    <img src="https://source.unsplash.com/1080x720?stage?orientation=landscape" class="card-img-top"
-                        alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Location 4</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
-        <div class="d-flex justify-content-center mt-5">
-            <a href="/" class="btn btn-dark text-decoration-none text-center">View More...</a>
-        </div>
-    </div>
+
+
+    </section>
+
     <br>
     <hr>
-    <h2 class="text-center">Schedules</h2>
-    <br>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5 d-flex justify-content-center ">
-        @foreach ($times as $time)
-            <div class="col">
-                <div class="card border border-0 shadow" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $time->events->nama }}</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ $time->tanggal }} |
-                            {{ $time->waktu }} </h6>
-                        <p class="card-text">{{ $time->places->nama }}</p>
-                    </div>
+
+    <section class="container mx-auto px-4">
+        <div class="mx-auto">
+            <h2 class="text-2xl font-semibold text-center">Schedules</h2>
+
+            <div class="mt-3">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    @foreach ($times as $time)
+                        <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
+                            <p class="text-lg font-semibold text-center mb-3">{{ $time->events->nama }}</p>
+                            <div class=" p-4 border-2 rounded-lg overflow-hidden">
+                                <h6 class="card-subtitle mb-2 text-body-secondary">{{ $time->tanggal }} |
+                                    {{ $time->waktu }} </h6>
+                                <p class="card-text">{{ $time->places->nama }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-        @endforeach
-    </div>
-    <div class="d-flex justify-content-center mt-5">
-        <a href="/" class="btn btn-dark text-decoration-none text-center">View More...</a>
-    </div>
-    <br><br>
+            <div class="flex justify-center mt-5">
+                <a href="/" class="text-xl font-semibold text-center">View More...</a>
+            </div>
+
+        </div>
+
+
+    </section>
 @endsection

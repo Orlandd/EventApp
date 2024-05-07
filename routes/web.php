@@ -64,6 +64,15 @@ Route::middleware('auth')->group(function () {
             return view('dashboard.index');
         }
     );
+
+    Route::post('/dashboard/scan/code', [TicketController::class, 'update']);
+    Route::get('/dashboard/scan/code', [TicketController::class, 'update']);
+
+    Route::post('/booking/event', [TicketController::class, 'getDataLocation'])->name('getDataLocation');
+    Route::post('/booking/schedule', [TicketController::class, 'getDataSchedule'])->name('getDataSchedule');
+
+
+
     Route::resource('/booking', TicketController::class);
     Route::resource('/dashboard/scan', TicketController::class);
 
@@ -85,12 +94,12 @@ Route::middleware('auth')->group(function () {
         ]);
     });
 
-    Route::post('/booking/schedule', function (Request $request) {
-        // dd($request);
-        return view('booking.schedule', [
-            'event' => $request->event,
-            'location' => $request->location,
-            'dates' => Schedule::where('event_id', $request->event)->where('place_id', $request->location)->get()
-        ]);
-    });
+    // Route::post('/booking/schedule', function (Request $request) {
+    //     // dd($request);
+    //     return view('booking.schedule', [
+    //         'event' => $request->event,
+    //         'location' => $request->location,
+    //         'dates' => Schedule::where('event_id', $request->event)->where('place_id', $request->location)->get()
+    //     ]);
+    // });
 });
