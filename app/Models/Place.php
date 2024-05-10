@@ -12,6 +12,12 @@ class Place extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nama',
+        'lokasi',
+        'image',
+    ];
+
     public function schedules()
     {
         return $this->hasMany(Schedule::class, 'schedule_id');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,8 @@ use App\Models\Event;
 use App\Models\Place;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +24,11 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
+
+    if (Auth::user()->role == 1) {
+        return redirect()->intended('/dashboard');
+    }
+
     return view('home', [
         'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get()
     ]);
@@ -75,6 +83,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/booking', TicketController::class);
     Route::resource('/dashboard/scan', TicketController::class);
+    Route::resource('/dashboard/schedules', ScheduleController::class);
+    Route::resource('/dashboard/places', PlaceController::class);
+
 
     // Route::get('/booking/event', function () {
     //     dd('test');

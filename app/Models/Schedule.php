@@ -14,6 +14,16 @@ class Schedule extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'event_id',
+        'place_id',
+        'tanggal',
+        'waktu',
+        'status',
+        'jumlah',
+    ];
+
+
     public function tickets()
     {
         return $this->hasMany(Ticket::class, 'ticket_id');

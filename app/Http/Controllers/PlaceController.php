@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Place;
 use App\Http\Requests\StorePlaceRequest;
 use App\Http\Requests\UpdatePlaceRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PlaceController extends Controller
 {
@@ -13,7 +14,16 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        //
+        $locations = Place::all();
+
+
+        if (Auth::user()->role == 1) {
+
+
+            return view('dashboard.locations.index', [
+                'locations' => $locations,
+            ]);
+        }
     }
 
     /**
@@ -21,7 +31,7 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.locations.create');
     }
 
     /**
@@ -29,7 +39,23 @@ class PlaceController extends Controller
      */
     public function store(StorePlaceRequest $request)
     {
-        //
+        // dd($request);
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
+        ]);
+
+        $imageName = $request->nama . '.' . $request->image->extension();
+        $request->image->move(public_path('storage'), $imageName);
+
+        $nama = $request->nama;
+        $lokasi = $request->address;
+        Place::create([
+            "nama" => $nama,
+            "lokasi" => $lokasi,
+            "image" => $imageName,
+        ]);
+
+        return redirect("/dashboard/places")->with("status", 'Location has been created!');
     }
 
     /**
@@ -37,7 +63,11 @@ class PlaceController extends Controller
      */
     public function show(Place $place)
     {
-        //
+        if (Auth::user()->role == 1) {
+            return view('dashboard.locations.detail', [
+                'location' => $place,
+            ]);
+        }
     }
 
     /**
@@ -45,7 +75,9 @@ class PlaceController extends Controller
      */
     public function edit(Place $place)
     {
-        //
+        return view("dashboard.locations.edit", [
+            'location' => $place,
+        ]);
     }
 
     /**
@@ -53,7 +85,29 @@ class PlaceController extends Controller
      */
     public function update(UpdatePlaceRequest $request, Place $place)
     {
-        //
+        // dd($request);
+
+        if (!isset($request->image)) {
+            $place->nama = $request->nama;
+            $place->lokasi = $request->address;
+            $place->update();
+
+            return redirect("/dashboard/places")->with("status", 'Location has been updated!');
+        }
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
+        ]);
+
+        $imageName = $request->nama . '.' . $request->image->extension();
+        $request->image->move(public_path('storage'), $imageName);
+
+        $place->nama = $request->nama;
+        $place->lokasi = $request->address;
+        $place->image = $imageName;
+        $place->update();
+
+        return redirect("/dashboard/places")->with("status", 'Location has been updated!');
     }
 
     /**

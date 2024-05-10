@@ -31,13 +31,13 @@
             </li>
             <li>
                 <a class="flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-700 dark:text-white"
-                    href="/dashboard">
+                    href="/dashboard/places">
                     Locations
                 </a>
             </li>
             <li>
                 <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-700 dark:text-white"
-                    href="/dashboard">
+                    href="/dashboard/schedules">
                     Schedules
                 </a>
             </li>
