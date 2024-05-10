@@ -2,26 +2,24 @@
 
 @section('container')
     <div class="text-center">
-        <h1>My Ticket</h1>
+        <h1 class="text-3xl font-bold my-4">My Ticket</h1>
     </div>
     <hr>
-    <div class="d-flex justify-content-center">
-        <div class="card text-center shadow" style="max-width: 340px;">
-            <div class="card-body">
-                <h5 class="card-title text-center">{{ $ticket->schedules->events->nama }}</h5>
-                <hr>
-                <h6 class="card-subtitle mb-2 text-body-secondary">{{ $ticket->schedules->tanggal }} |
-                    {{ $ticket->schedules->waktu }}
-                </h6>
-                <h6 class="card-subtitle mb-2 text-body-secondary">{{ $ticket->schedules->places->nama }}</h6>
-                <p class="card-text">{{ $ticket->schedules->places->lokasi }}</p>
-                <hr>
-                <div class="text-center">
-                    {{ QrCode::size(200)->generate($ticket->code) }}
-                    <p>{{ $ticket->code }}</p>
-                </div>
 
+    <section class="container mx-auto mt-5">
+        <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 max-w-96 mx-auto">
+            <p class="text-lg font-semibold text-center mb-3">{{ $ticket->schedules->events->nama }}</p>
+            <div class=" p-4 border-2 rounded-lg overflow-hidden">
+                <h6 class="text-lg font-medium text-center">{{ $ticket->schedules->tanggal }} |
+                    {{ $ticket->schedules->waktu }} </h6>
+                <p class="text-lg font-medium text-center">{{ $ticket->schedules->places->nama }}</p>
+                <p class="text-lg font-medium text-center">{{ $ticket->schedules->places->lokasi }}</p>
+                <hr>
+                <div class="mt-4">
+                    <div class="flex flex-wrap justify-center"> {{ QrCode::size(200)->generate($ticket->code) }}</div>
+                    <p class="text-center">{{ $ticket->code }}</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

@@ -1,39 +1,31 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Scan Code</h1>
+    <div class="container mx-auto px-3 mb-10 mt-5">
+        <h1 class="text-3xl font-bold">Scan Code</h1>
     </div>
 
-    <div id="notif">
+    <div id="notif" class="container mx-auto px-3">
+
     </div>
 
-    <div class="d-flex justify-content-center">
-        <div class="row">
-            <div class="col-12">
-                <div class="card d-flex justify-content-center" style="width: 40rem;">
-                    <div class="card-body" id="reader">
-                    </div>
-                </div>
-            </div>
+    <div class="container mx-auto px-3">
+        <div class="rounded-xl overflow-hidden w-full md:w-[700px] mx-auto lg:w-[500px]" id="reader">
         </div>
     </div>
-    <div class="d-flex justify-content-center mt-3">
-        <div class="row">
-            <div class="col-12">
-                <h5>Input Code</h5>
-                <form id="scanForm">
 
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Recipient's username"
-                            aria-label="Recipient's username" aria-describedby="button-addon2" style="width: 40rem;"
-                            id="result" name="result">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">C</button>
-                    </div>
-                </form>
+    <section class="container mx-auto px-3">
+        <h5 class="text-2xl font-semibold mt-6">Input Code</h5>
+        <form id="scanForm">
+
+            <div class="">
+                <input type="text" class="w-full p-2 border-2 rounded-full" id="result" name="result">
+
+                <button class="w-full mt-4 py-3 rounded-full bg-sky-400" type="submit" id="button-addon2">Submit</button>
             </div>
-        </div>
-    </div>
+        </form>
+    </section>
+
     {{-- <div id="reader" width="100px"></div> --}}
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -53,7 +45,9 @@
                     },
                     success: function(response) {
                         $("#notif").html(`
-                            ${response}
+
+                            <div class="py-3 px-3 w-full rounded-full border-2 my-3">${response}</div>
+                            
                         `)
                     },
                     error: function(xhr, status, error) {
@@ -81,7 +75,7 @@
                 success: function(response) {
 
                     $("#notif").html(`
-                            ${response}
+                            <div class="py-3 px-3 w-full rounded-full border-2 my-3">${response}</div>
                         `)
                 },
                 error: function(xhr, status, error) {

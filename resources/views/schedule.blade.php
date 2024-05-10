@@ -2,56 +2,56 @@
 
 @section('container')
     {{-- Place  --}}
-    <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 g-4 mb-5">
-        <div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
-            <div class="carousel-inner rounded-4">
-                <div class="carousel-item active">
-                    <img src="https://source.unsplash.com/1080x500?stage?orientation=landscape"
-                        class="rounded-4 d-block w-100 h-95" alt="..." style="filter: brightness(50%);">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5><a href="/schedule/place/{{ $locations[0]->id }}"
-                                class="text-decoration-none text-white">{{ $locations[0]->nama }}</a></h5>
-                        <p>Some representative placeholder content for the first slide.</p>
+
+    <!-- Slider -->
+    <section class="container mx-auto px-3">
+        <div data-hs-carousel='{
+            "loadingClasses": "opacity-0",
+            "isAutoPlay": true
+          }'
+            class="relative">
+            <div class="hs-carousel relative overflow-hidden w-full h-[200px] md:h-[700px] bg-white rounded-lg">
+                <div
+                    class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
+                    <div class="hs-carousel-slide">
+                        <div class="flex justify-center h-full bg-cover bg-center bg-gray-100 p-6 dark:bg-neutral-900"
+                            style="background-image: url(https://source.unsplash.com/1080x500?stage?orientation=landscape)">
+                        </div>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://source.unsplash.com/1080x500?concert-stage?orientation=landscape"
-                        class="rounded-4 d-block w-100 h-95" alt="..." style="filter: brightness(50%);">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5><a href="/schedule/place/{{ $locations[1]->id }}"
-                                class="text-decoration-none text-white">{{ $locations[1]->nama }}</a></h5>
-                        <p>Some representative placeholder content for the first slide.</p>
+                    <div class="hs-carousel-slide">
+                        <div class="flex justify-center h-full bg-gray-200 p-6 bg-cover bg-center dark:bg-neutral-800"
+                            style="background-image: url(https://source.unsplash.com/2080x1000?concert-stage?orientation=landscape)">
+                            <span
+                                class="self-center
+                            text-4xl text-gray-800 transition duration-700 dark:text-white">Second
+                                slide</span>
+                        </div>
                     </div>
+
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
-    </div>
+    </section>
 
-    <h3>Current Event</h3>
+    <!-- End Slider -->
 
-    {{-- Schedule --}}
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
-        @foreach ($times as $time)
-            <div class="col">
-                <div class="card border border-0 shadow" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $time->events->nama }}</h5>
+
+
+
+    <h3 class="text-center text-3xl font-bold m-6">Current Event</h3>
+
+    <section class="container mx-auto">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+            @foreach ($times as $time)
+                <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
+                    <p class="text-lg font-semibold text-center mb-3">{{ $time->events->nama }}</p>
+                    <div class=" p-4 border-2 rounded-lg overflow-hidden">
                         <h6 class="card-subtitle mb-2 text-body-secondary">{{ $time->tanggal }} |
                             {{ $time->waktu }} </h6>
                         <p class="card-text">{{ $time->places->nama }}</p>
                     </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
+            @endforeach
+        </div>
+    </section>
 @endsection
