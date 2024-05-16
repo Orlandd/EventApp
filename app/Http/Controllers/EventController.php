@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -13,7 +14,16 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::all();
+
+
+        if (Auth::user()->role == 1) {
+
+
+            return view('dashboard.events.index', [
+                'events' => $events,
+            ]);
+        }
     }
 
     /**
@@ -21,7 +31,11 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::user()->role == 1) {
+
+
+            return view('dashboard.events.create');
+        }
     }
 
     /**
@@ -29,7 +43,12 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        $nama = $request->nama;
+        Event::create([
+            "nama" => $nama,
+        ]);
+
+        return redirect("/dashboard/events")->with("status", 'Event has been added!');
     }
 
     /**
@@ -45,7 +64,9 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view("dashboard.events.edit", [
+            'event' => $event,
+        ]);
     }
 
     /**
@@ -53,7 +74,10 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        $event->nama = $request->nama;
+        $event->update();
+
+        return redirect("/dashboard/events")->with("status", 'Event has been updated!');
     }
 
     /**

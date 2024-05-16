@@ -5,18 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Schedule;
-
-
-class Event extends Model
+class EventPicture extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama',
+        'image',
     ];
-
-    public function schedules()
-    {
-        return $this->hasMany(Schedule::class, 'schedule_id');
-    }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventPictureController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TicketController;
@@ -7,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Models\Event;
+use App\Models\Home;
 use App\Models\Place;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
@@ -25,13 +29,15 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
 
-    if (Auth::user()->role == 1) {
-        return redirect()->intended('/dashboard');
+
+    if (Auth::guest() || Auth::user()->role == 0) {
+        return view('home', [
+            'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+            'images' => Home::all()
+        ]);
     }
 
-    return view('home', [
-        'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get()
-    ]);
+    return redirect()->intended('/dashboard');
 });
 
 Route::get(
@@ -85,6 +91,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/dashboard/scan', TicketController::class);
     Route::resource('/dashboard/schedules', ScheduleController::class);
     Route::resource('/dashboard/places', PlaceController::class);
+    Route::resource('/dashboard/homes', HomeController::class);
+    Route::resource('/dashboard/event-pictures', EventPictureController::class);
+    Route::resource('/dashboard/events', EventController::class);
 
 
     // Route::get('/booking/event', function () {

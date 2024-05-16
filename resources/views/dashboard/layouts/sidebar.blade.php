@@ -30,6 +30,12 @@
                 </a>
             </li>
             <li>
+                <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-700 dark:text-white"
+                    href="/dashboard/events">
+                    Events
+                </a>
+            </li>
+            <li>
                 <a class="flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-700 dark:text-white"
                     href="/dashboard/places">
                     Locations
@@ -49,12 +55,7 @@
                 </a>
             </li>
             <hr>
-            <li>
-                <a class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-700 dark:text-white"
-                    href="/signout">Logout</a>
-                </a>
-                </a>
-            </li>
+
 
             <li class="hs-accordion" id="users-accordion">
                 <button type="button"
@@ -197,7 +198,7 @@
                         <path d="m14.3 16.6 1-.4" />
                         <path d="m20.7 13.8 1-.4" />
                     </svg>
-                    Account
+                    Home
 
                     <svg class="hs-accordion-active:block ms-auto hidden size-4 text-gray-600 group-hover:text-gray-500 dark:text-neutral-400"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -219,22 +220,17 @@
                     <ul class="pt-2 ps-2">
                         <li>
                             <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                href="#">
-                                Link 1
+                                href="/dashboard/homes">
+                                Hero
                             </a>
                         </li>
                         <li>
                             <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                href="#">
-                                Link 2
+                                href="/dashboard/event-pictures">
+                                Event
                             </a>
                         </li>
-                        <li>
-                            <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-gray-100 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300"
-                                href="#">
-                                Link 3
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
             </li>
@@ -320,6 +316,13 @@
                     </svg>
                     Documentation
                 </a></li>
+            <hr>
+            <li>
+                <a class="flex items-center gap-x-3.5 py-2 px-2.5 bg-red-100 text-sm text-gray-700 rounded-lg hover:bg-red-200 dark:bg-neutral-700 dark:text-white"
+                    href="/signout">Logout</a>
+                </a>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>

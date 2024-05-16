@@ -11,18 +11,19 @@
                     make it an Event. Secure your tickets now!</p>
             </div>
             <div class="w-full flex gap-1 md:max-w-[610px]">
-                <div class="mx-auto w-[400px] h-[300px] md:w-[300px] md:h-[608px] bg-slate-500 rounded-xl overflow-hidden">
-                    <img src="https://source.unsplash.com/1000x3000?stage?orientation=horizontal" alt="">
+                <div class="bg-no-repeat bg-center bg-cover	 mx-auto w-[400px] h-[300px] md:w-[300px] md:h-[608px] bg-slate-500 rounded-xl overflow-hidden"
+                    style="background-image: url(/storage/home/{{ $images[0]->image }});">
+                    {{-- <img src="" alt=""> --}}
                 </div>
 
                 <div class="hidden md:inline">
-                    <div
-                        class="mx-auto mb-2 w-[400px] h-[300px] md:w-[300px] md:h-[300px] bg-slate-500 rounded-xl overflow-hidden">
-                        <img src="https://source.unsplash.com/1080x1080?stage?orientation=horizontal" alt="">
+                    <div style="background-image: url(/storage/home/{{ $images[1]->image }});"
+                        class="bg-no-repeat bg-center bg-cover mx-auto mb-2 w-[400px] h-[300px] md:w-[300px] md:h-[300px] bg-slate-500 rounded-xl overflow-hidden">
+                        {{-- <img src="https://source.unsplash.com/1080x1080?stage?orientation=horizontal" alt=""> --}}
                     </div>
-                    <div
-                        class="mx-auto  mt-2 w-[400px] h-[300px] md:w-[300px] md:h-[300px] bg-slate-500 rounded-xl overflow-hidden">
-                        <img src="https://source.unsplash.com/1080x1080?praise?orientation=horizontal" alt="">
+                    <div style="background-image: url(/storage/home/{{ $images[2]->image }});"
+                        class=" bg-no-repeat bg-center bg-cover mx-auto  mt-2 w-[400px] h-[300px] md:w-[300px] md:h-[300px] bg-slate-500 rounded-xl overflow-hidden">
+                        {{-- <img src="https://source.unsplash.com/1080x1080?praise?orientation=horizontal" alt=""> --}}
                     </div>
                 </div>
 

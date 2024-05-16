@@ -17,10 +17,11 @@
 
 
     <section class="container mx-auto px-3">
-        <form action="/dashboard/events/" method="post">
+        <form action="/dashboard/events/{{ $event->id }}" method="post">
+            @method('PUT')
             @csrf
             <label for="nama">Name</label><br>
-            <input type="text" name="nama" id="nama"
+            <input type="text" name="nama" id="nama" value="{{ $event->nama }}"
                 class="rounded-lg py-2 px-3 mb-3 border-gray-200 border-2"><br>
 
 

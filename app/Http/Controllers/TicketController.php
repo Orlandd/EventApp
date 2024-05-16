@@ -62,6 +62,13 @@ class TicketController extends Controller
         // $schedule = Schedule::where('event_id', $request->event)->where('place_id', $request->location)->where('tanggal', $date[0])->where('waktu', $date[1])->first();
 
         // dd($schedule);
+
+        $schedule = Schedule::find($request->schedule)->first();
+
+        if ($schedule->jumlah < $request->quantity) {
+            return redirect('/booking')->with('status', 'You ordered more than the remaining quantity!');
+        }
+
         for ($i = 0; $i < $request->quantity; $i++) {
             $code = Uuid::uuid4()->toString();
             $data = $request;
@@ -72,6 +79,11 @@ class TicketController extends Controller
             ];
 
             Ticket::create($data);
+
+            $schedule = Schedule::find($request->schedule)->first();
+
+            $schedule->jumlah = $schedule->jumlah - 1;
+            $schedule->update();
         }
 
         return redirect('/');

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('schedule_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

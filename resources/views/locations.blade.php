@@ -10,14 +10,11 @@
             @foreach ($locations as $location)
                 <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
                     <div class=" border-2 rounded-lg overflow-hidden ">
-                        <img src="https://source.unsplash.com/1080x500?stage?orientation=landscape" class="card-img-top"
-                            alt="...">
+                        <img src="/storage/{{ $location->image }}" class="card-img-top" alt="...">
                     </div>
                     <div class="text-center">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional
-                            content. This content is a little bit longer.</p>
+                        <h5 class="card-title">{{ $location->nama }}</h5>
+                        <p class="card-text">{{ $location->lokasi }}</p>
                     </div>
 
                 </div>

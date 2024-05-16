@@ -6,6 +6,8 @@ use App\Models\Schedule;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Event;
+use App\Models\EventPicture;
+use App\Models\Home;
 use App\Models\Place;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,20 +21,22 @@ class ScheduleController extends Controller
     {
         $locations = Place::all();
         $times = Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get();
+        $images = Home::all();
+        $eventimages = EventPicture::all();
         // dd($times);
 
-        if (Auth::user()->role == 1) {
-
-
-            return view('dashboard.schedules.index', [
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('schedule', [
                 'locations' => $locations,
-                'times' => $times
+                'times' => $times,
+                'images' => $eventimages
             ]);
         }
 
-        return view('schedule', [
+        return view('dashboard.schedules.index', [
             'locations' => $locations,
-            'times' => $times
+            'times' => $times,
+            'images' => $images
         ]);
     }
 
