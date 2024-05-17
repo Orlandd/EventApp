@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\EventPicture;
 use App\Http\Requests\StoreEventPictureRequest;
 use App\Http\Requests\UpdateEventPictureRequest;
+use App\Models\Home;
+use App\Models\Schedule;
+use Illuminate\Support\Facades\Auth;
 
 class EventPictureController extends Controller
 {
@@ -14,6 +17,13 @@ class EventPictureController extends Controller
     public function index()
     {
         $images = EventPicture::all();
+
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
 
         return view('dashboard.home.event.index', [
             'images' => $images
@@ -25,6 +35,12 @@ class EventPictureController extends Controller
      */
     public function create()
     {
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
         return view('dashboard.home.event.create');
     }
 

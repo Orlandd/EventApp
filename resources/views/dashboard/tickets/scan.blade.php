@@ -15,10 +15,24 @@
     </div>
 
     <section class="container mx-auto px-3">
-        <h5 class="text-2xl font-semibold mt-6">Input Code</h5>
         <form id="scanForm">
 
             <div class="">
+                <h5 class="text-2xl font-semibold mt-6">Event</h5>
+
+                <select id="idEvent" name="idEvent"
+                    class="py-2 px-3 mb-3 pe-9 block w-full border-2 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                    <option selected="">Open this select menu</option>
+                    @foreach ($schedules as $schedule)
+                        <option value="{{ $schedule->id }}" data-variable="{{ $schedule->id }}">
+                            {{ $schedule->events->nama }} | {{ $schedule->places->nama }} | {{ $schedule->tanggal }} |
+                            {{ $schedule->waktu }}
+                        </option>
+                    @endforeach
+                </select>
+                <h5 class="text-2xl font-semibold mt-6">Input Code</h5>
+
+
                 <input type="text" class="w-full p-2 border-2 rounded-full" id="result" name="result">
 
                 <button class="w-full mt-4 py-3 rounded-full bg-sky-400" type="submit" id="button-addon2">Submit</button>
@@ -41,6 +55,7 @@
                     url: '/dashboard/scan/code',
                     data: {
                         result: code,
+                        idEvent: $('#idEvent').val(),
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
@@ -70,6 +85,7 @@
                 url: '/dashboard/scan/code',
                 data: {
                     result: code,
+                    idEvent: $('#idEvent').val(),
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {

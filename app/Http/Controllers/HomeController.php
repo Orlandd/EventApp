@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Home;
 use App\Http\Requests\StoreHomeRequest;
 use App\Http\Requests\UpdateHomeRequest;
+use App\Models\Schedule;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,6 +16,13 @@ class HomeController extends Controller
     public function index()
     {
         $images = Home::all();
+
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
 
         return view('dashboard.home.hero.index', [
             'images' => $images

@@ -47,6 +47,14 @@ class ScheduleController extends Controller
     {
         $locations = Place::all();
         $events = Event::all();
+
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
+
         return view("dashboard.schedules.create", [
             'locations' => $locations,
             'events' => $events
@@ -89,10 +97,19 @@ class ScheduleController extends Controller
      */
     public function edit(Schedule $schedule)
     {
+
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
+
         $times = Schedule::with('places', 'events')->where('id', $schedule->id)->orderBy('tanggal', 'ASC')->first();
 
         $locations = Place::all();
         $events = Event::all();
+
         return view("dashboard.schedules.edit", [
             'schedule' => $times,
             'locations' => $locations,
@@ -129,6 +146,7 @@ class ScheduleController extends Controller
      */
     public function destroy(Schedule $schedule)
     {
-        //
+        $schedule->delete();
+        return redirect("/dashboard/schedules")->with("status", 'Schedule has been deleted!');
     }
 }

@@ -38,7 +38,9 @@ class TicketController extends Controller
             ]);
         }
 
-        return view('dashboard.tickets.scan');
+        return view('dashboard.tickets.scan', [
+            'schedules' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get()
+        ]);
     }
 
     /**
@@ -121,6 +123,15 @@ class TicketController extends Controller
     public function update(Request $request, Ticket $ticket)
     {
         $tickets = Ticket::where('code', $request->result)->first();
+
+
+        if ($ticket->schedule_id !== $request->id) {
+            return response()->json('
+                <div class="alert alert-danger" role="alert">
+                    Ticket Not Same with event!
+                </div>
+            ');
+        }
 
 
         if (!$tickets) {

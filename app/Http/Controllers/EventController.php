@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Models\Home;
+use App\Models\Place;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
@@ -15,6 +18,13 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
+
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
 
 
         if (Auth::user()->role == 1) {
@@ -31,6 +41,13 @@ class EventController extends Controller
      */
     public function create()
     {
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
+
         if (Auth::user()->role == 1) {
 
 
@@ -64,6 +81,13 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
+
         return view("dashboard.events.edit", [
             'event' => $event,
         ]);
@@ -85,6 +109,9 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+
+
+        $event->delete();
+        return redirect("/dashboard/events")->with("status", 'Event has been deleted!');
     }
 }

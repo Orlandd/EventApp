@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Place;
 use App\Http\Requests\StorePlaceRequest;
 use App\Http\Requests\UpdatePlaceRequest;
+use App\Models\Home;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 
 class PlaceController extends Controller
@@ -15,6 +17,13 @@ class PlaceController extends Controller
     public function index()
     {
         $locations = Place::all();
+
+        if (Auth::guest() || Auth::user()->role == 0) {
+            return view('home', [
+                'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
+                'images' => Home::all()
+            ]);
+        }
 
 
         if (Auth::user()->role == 1) {
@@ -115,6 +124,8 @@ class PlaceController extends Controller
      */
     public function destroy(Place $place)
     {
-        //
+        $place->delete();
+
+        return redirect("/dashboard/places")->with("status", 'Location has been deleted!');
     }
 }
