@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class UserController extends Controller
 {
@@ -84,7 +85,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.users.index', [
+            'users' => User::all()
+        ]);
     }
 
     /**
@@ -92,7 +95,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.users.create');
     }
 
     /**
@@ -100,7 +103,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users',
+            'nohp' => 'required|numeric|min:8',
+            'password' => 'required|min:5|max:255'
+        ]);
+
+        $validated['password'] = Hash::make($validated['password']);
+        $validated['role'] = '1';
+
+
+        // dd($validated);
+
+        User::create($validated);
+
+        // The blog post is valid...
+        return redirect('/dashboard/user')->with('success', 'Add user successfully!');
     }
 
     /**
@@ -114,9 +133,9 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        return view('dashboard.users.editProfile');
     }
 
     /**
@@ -130,8 +149,53 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // dd($id);
+
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect('/dashboard/user')->with('success', 'User has been deleted!');
+    }
+
+    public function userEdit(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'nohp' => 'required|numeric|min:8',
+            'newpassword' => 'nullable|min:5|max:255'
+        ]);
+        // dd();
+
+        if (!Auth::attempt(['email' => auth()->user()->email, 'password' => $request->password])) {
+            return redirect('/profile/edit')->with('success', 'Password not valid!');
+        }
+
+
+        if ($request->email !== auth()->user()->email) {
+            $validated = $request->validate([
+                'email' => 'required|email|unique:users',
+            ]);
+            $user->email = $validated['email'];
+        }
+
+        if (isset($request->newpassword)) {
+            $user->password = Hash::make($validated['newpassword']);
+        }
+
+        $user->name = $validated['name'];
+        $user->nohp = $validated['nohp'];
+        $user->save();
+
+        if (Auth::user()->role == 1) {
+            return redirect()->intended('/dashboard');
+        }
+
+        return redirect('/profile')->with('success', 'Edit has been successfully');
+
+        // dd($user);
     }
 }

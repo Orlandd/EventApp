@@ -6,8 +6,8 @@
     </div>
 
     @if (session('status'))
-        <section class="container ">
-            <div class="w-full p-3 border-2 border-sky-600 rounded-lg shadow-lg shadow-sky-300">
+        <section class="container mx-auto px-3 mb-5">
+            <div class="w-full p-3 border-2 border-sky-600 rounded-lg shadow-lg shadow-sky-300/25">
                 {{ session('status') }}
             </div>
         </section>

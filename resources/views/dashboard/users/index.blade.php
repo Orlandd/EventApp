@@ -4,7 +4,7 @@
     {{-- Place  --}}
 
     <section class="container ">
-        <h3 class="text-3xl font-bold m-6">Events</h3>
+        <h3 class="text-3xl font-bold m-6">Users</h3>
     </section>
 
     @if (session('status'))
@@ -16,7 +16,7 @@
     @endif
 
     <section class="container mx-6 my-4">
-        <a href="/dashboard/events/create" class="px-4 py-2 bg-sky-500 rounded-full text-white">New Event</a>
+        <a href="/dashboard/user/create" class="px-4 py-2 bg-sky-500 rounded-full text-white">Add User</a>
     </section>
 
     <section class="container px-3">
@@ -30,28 +30,50 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                         Name</th>
-
+                                    <th scope="col"
+                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                        Email</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                        Phone</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                        Status</th>
                                     <th scope="col"
                                         class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                         Action</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                @foreach ($events as $event)
+                                @foreach ($users as $user)
                                     <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-                                            {{ $event->nama }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                                            {{ $user->name }}</td>
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+                                            {{ $user->email }}</td>
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+                                            {{ $user->nohp }}</td>
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
 
-                                            <a href="/dashboard/events/{{ $event['id'] }}/edit"
-                                                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-600 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:text-yellow-500 dark:hover:text-yellow-400">Update</a>
-                                            <form action="/dashboard/events/{{ $event['id'] }}" method="post"
+                                            @if ($user->role == 1)
+                                                Admin
+                                            @else
+                                                User
+                                            @endif
+
+
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                                            <form action="/dashboard/user/{{ $user['id'] }}" method="post"
                                                 class="inline-flex">
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit"
-                                                    onclick="return confirm('Are you sure delete {{ $event->name }}?')"
+                                                    onclick="return confirm('Are you sure delete {{ $user->name }}?')"
                                                     class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
                                             </form>
 

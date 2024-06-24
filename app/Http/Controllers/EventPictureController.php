@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateEventPictureRequest;
 use App\Models\Home;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class EventPictureController extends Controller
 {
@@ -60,6 +62,12 @@ class EventPictureController extends Controller
             $imageName = 'image1' . '.' . $request->image->extension();
         } else {
             $imageName = 'image' . $id->id + 1 . '.' . $request->image->extension();
+        }
+
+        $directory = public_path('storage/event');
+
+        if (!File::exists($directory)) {
+            File::makeDirectory($directory, 0755, true);
         }
 
         $request->image->move(public_path('storage/event'), $imageName);
@@ -118,6 +126,15 @@ class EventPictureController extends Controller
      */
     public function destroy(EventPicture $eventPicture)
     {
-        //
+
+        $imagePath = public_path('storage/event/' . $eventPicture->image);
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+
+            $eventPicture->delete();
+        }
+
+
+        return redirect("/dashboard/event-pictures")->with("status", 'Image has been deleted!');
     }
 }

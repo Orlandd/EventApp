@@ -3,30 +3,33 @@
 @section('container')
     {{-- Place  --}}
 
-    <!-- Slider -->
-    <section class="container mx-auto px-3">
-        <div data-hs-carousel='{
+    @if ($images != [])
+        <!-- Slider -->
+        <section class="container mx-auto px-3">
+            <div data-hs-carousel='{
             "loadingClasses": "opacity-0",
             "isAutoPlay": true
           }'
-            class="relative">
-            <div class="hs-carousel relative overflow-hidden w-full h-[200px] md:h-[700px] bg-white rounded-lg">
+                class="relative">
+                <div class="hs-carousel relative overflow-hidden w-full h-[200px] md:h-[700px] bg-white rounded-lg">
 
-                <div
-                    class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
-                    @foreach ($images as $image)
-                        <div class="hs-carousel-slide">
-                            <div class="flex justify-center h-full bg-cover bg-center bg-gray-100 p-6 dark:bg-neutral-900"
-                                style="background-image: url(/storage/event/{{ $image->image }})">
+                    <div
+                        class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
+                        @foreach ($images as $image)
+                            <div class="hs-carousel-slide">
+                                <div class="flex justify-center h-full bg-cover bg-center bg-gray-100 p-6 dark:bg-neutral-900"
+                                    style="background-image: url(/storage/event/{{ $image->image }})">
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
 
 
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
+
 
     <!-- End Slider -->
 

@@ -17,6 +17,6 @@ class Event extends Model
 
     public function schedules()
     {
-        return $this->hasMany(Schedule::class, 'schedule_id');
+        return $this->hasMany(Schedule::class);
     }
 }

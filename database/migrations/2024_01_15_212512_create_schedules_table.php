@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('place_id');
+            $table->unsignedBigInteger('place_id')->nullable();
             $table->unsignedBigInteger('event_id');
             $table->date('tanggal');
             $table->time('waktu');
             $table->string('status')->default('on');
             $table->integer('jumlah');
-            $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('place_id')->references('id')->on('places')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

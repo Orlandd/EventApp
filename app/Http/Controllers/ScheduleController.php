@@ -26,6 +26,8 @@ class ScheduleController extends Controller
         // dd($times);
 
         if (Auth::guest() || Auth::user()->role == 0) {
+
+
             return view('schedule', [
                 'locations' => $locations,
                 'times' => $times,

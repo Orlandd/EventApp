@@ -29,8 +29,8 @@
 
 
         <!-- Section: Links  -->
-        <section class="">
-            <div class="container text-center text-md-start ">
+        <section class="bottom-0">
+            <div class="text-center text-md-start bg-slate-400 py-5">
                 <!-- Grid row -->
                 <div class="row mt-3">
                     <!-- Grid column -->

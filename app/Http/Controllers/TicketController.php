@@ -67,7 +67,13 @@ class TicketController extends Controller
 
         $schedule = Schedule::find($request->schedule)->first();
 
-        if ($schedule->jumlah < $request->quantity) {
+        $jmTicket = Ticket::where('schedule_id', $request->schedule)->count();
+        $jmTicketAvailable = $schedule->jumlah - $jmTicket;
+
+        // dd(Schedule::find($request->schedule)->first());
+
+
+        if ($jmTicketAvailable < $request->quantity) {
             return redirect('/booking')->with('status', 'You ordered more than the remaining quantity!');
         }
 
@@ -82,13 +88,13 @@ class TicketController extends Controller
 
             Ticket::create($data);
 
-            $schedule = Schedule::find($request->schedule)->first();
+            // $schedule = Schedule::find($request->schedule)->first();
 
-            $schedule->jumlah = $schedule->jumlah - 1;
-            $schedule->update();
+            // $schedule->jumlah = $schedule->jumlah - 1;
+            // $schedule->update();
         }
 
-        return redirect('/');
+        return redirect('/booking');
     }
 
     /**

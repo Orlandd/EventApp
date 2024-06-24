@@ -25,6 +25,12 @@
                     <div class="text-center mt-3">
                         <a href="/dashboard/event-pictures/{{ $image->id }}/edit"
                             class="px-6 py-2 rounded-xl bg-sky-400">Edit</a>
+                        <form action="/dashboard/event-pictures/{{ $image->id }}" method="post" class="inline-flex">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" onclick="return confirm('Are you sure delete ?')"
+                                class="inline-flex px-6 py-2 rounded-xl bg-rose-400">Delete</button>
+                        </form>
                     </div>
                 </div>
             @endforeach

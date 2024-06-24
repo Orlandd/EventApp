@@ -39,32 +39,17 @@
     <section class="container mx-auto px-4">
         <div class="mx-auto">
             <h2 class="text-2xl font-semibold text-center">Locations</h2>
-
             <div class="mt-3">
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
-                        <div class=" aspect-square bg-slate-600 rounded-lg overflow-hidden">
-                            <img src="https://source.unsplash.com/1080x1080?bulding-concert?orientation=landscape"
-                                class="card-img-top" alt="...">
-                        </div>
-                        <p class="text-center text-xl mt-3">Location 1</p>
-                    </div>
+                    @foreach ($locations as $location)
+                        <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
+                            <div class=" aspect-square bg-center bg-cover  bg-slate-600 rounded-lg overflow-hidden"
+                                style="background-image: url(/storage/places/{{ $location->image }});">
 
-                    <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
-                        <div class=" aspect-square bg-slate-600 rounded-lg overflow-hidden">
-                            <img src="https://source.unsplash.com/1080x1080?concert-hall?orientation=landscape"
-                                class="card-img-top" alt="...">
+                            </div>
+                            <p class="text-center text-xl mt-3">{{ $location->nama }}</p>
                         </div>
-                        <p class="text-center text-xl mt-3">Location 1</p>
-                    </div>
-
-                    <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
-                        <div class=" aspect-square bg-slate-600 rounded-lg overflow-hidden">
-                            <img src="https://source.unsplash.com/1080x1080?auditorium?orientation=landscape"
-                                class="card-img-top" alt="...">
-                        </div>
-                        <p class="text-center text-xl mt-3">Location 1</p>
-                    </div>
+                    @endforeach
 
                 </div>
             </div>

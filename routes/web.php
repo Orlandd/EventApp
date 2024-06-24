@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventPictureController;
 use App\Http\Controllers\HomeController;
@@ -13,6 +15,7 @@ use App\Models\Event;
 use App\Models\Home;
 use App\Models\Place;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +36,8 @@ Route::get('/', function () {
     if (Auth::guest() || Auth::user()->role == 0) {
         return view('home', [
             'times' => Schedule::with('places', 'events')->orderBy('tanggal', 'ASC')->get(),
-            'images' => Home::all()
+            'images' => Home::all(),
+            'locations' => Place::all()
         ]);
     }
 
@@ -74,9 +78,37 @@ Route::middleware('auth')->group(function () {
     Route::get('/signout', [UserController::class, 'logout']);
     Route::get(
         '/dashboard',
-        function () {
-            return view('dashboard.index');
-        }
+        [DashboardController::class, 'index']
+    );
+
+    Route::get(
+        '/dashboard/getEvent',
+        [DashboardController::class, 'getEvent']
+    );
+
+    Route::get(
+        '/dashboard/user',
+        [UserController::class, 'index']
+    );
+
+    Route::get(
+        '/dashboard/user/create',
+        [UserController::class, 'create']
+    );
+
+    Route::get(
+        '/dashboard/user/edit',
+        [UserController::class, 'edit']
+    );
+
+    Route::post(
+        '/dashboard/user/create',
+        [UserController::class, 'store']
+    );
+
+    Route::delete(
+        '/dashboard/user/{id}',
+        [UserController::class, 'destroy']
     );
 
     Route::post('/dashboard/scan/code', [TicketController::class, 'update']);
@@ -94,6 +126,25 @@ Route::middleware('auth')->group(function () {
     Route::resource('/dashboard/homes', HomeController::class);
     Route::resource('/dashboard/event-pictures', EventPictureController::class);
     Route::resource('/dashboard/events', EventController::class);
+
+    Route::get(
+        '/profile',
+        function () {
+            return view('profile');
+        }
+    );
+
+    Route::get(
+        '/profile/edit',
+        function () {
+            return view('editProfile');
+        }
+    );
+
+    Route::post(
+        '/profile/update',
+        [UserController::class, 'userEdit']
+    );
 
 
     // Route::get('/booking/event', function () {

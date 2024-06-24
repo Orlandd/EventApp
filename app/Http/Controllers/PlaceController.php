@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePlaceRequest;
 use App\Models\Home;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PlaceController extends Controller
 {
@@ -50,11 +51,19 @@ class PlaceController extends Controller
     {
         // dd($request);
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048',
         ]);
 
+        $directory = public_path('storage/places');
+
+        if (!File::exists($directory)) {
+            File::makeDirectory($directory, 0755, true);
+        }
+
         $imageName = $request->nama . '.' . $request->image->extension();
-        $request->image->move(public_path('storage'), $imageName);
+        $imageName = str_replace(' ', '', $imageName);
+
+        $request->image->move(public_path('storage/places'), $imageName);
 
         $nama = $request->nama;
         $lokasi = $request->address;
@@ -105,11 +114,11 @@ class PlaceController extends Controller
         }
 
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048',
         ]);
 
         $imageName = $request->nama . '.' . $request->image->extension();
-        $request->image->move(public_path('storage'), $imageName);
+        $request->image->move(public_path('storage/places'), $imageName);
 
         $place->nama = $request->nama;
         $place->lokasi = $request->address;
@@ -124,7 +133,14 @@ class PlaceController extends Controller
      */
     public function destroy(Place $place)
     {
-        $place->delete();
+
+        $imagePath = public_path('storage/places/' . $place->image);
+
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+
+            $place->delete();
+        }
 
         return redirect("/dashboard/places")->with("status", 'Location has been deleted!');
     }

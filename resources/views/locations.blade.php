@@ -10,7 +10,7 @@
             @foreach ($locations as $location)
                 <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3 hover:scale-105 transition-all">
                     <div class=" border-2 rounded-lg overflow-hidden ">
-                        <img src="/storage/{{ $location->image }}" class="card-img-top" alt="...">
+                        <img src="/storage/places/{{ $location->image }}" class="card-img-top" alt="...">
                     </div>
                     <div class="text-center">
                         <h5 class="card-title">{{ $location->nama }}</h5>

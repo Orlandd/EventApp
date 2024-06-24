@@ -26,7 +26,7 @@ class Schedule extends Model
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class, 'ticket_id');
+        return $this->hasMany(Ticket::class);
     }
 
     public function events()

@@ -11,7 +11,7 @@
     <section class="container mx-auto px-3 mb-5">
         <div class="rounded-xl shadow-xl border-2 overflow-hidden p-3">
             <div class=" border-2 rounded-lg overflow-hidden ">
-                <img src="/storage/{{ $location->image }}" class="card-img-top" alt="...">
+                <img src="/storage/places/{{ $location->image }}" class="card-img-top" alt="...">
             </div>
             <div class="text-center">
                 <h1 class="text-2xl">{{ $location->nama }}</h1>
